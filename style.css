@@ -1,0 +1,509 @@
+/* START OF FILE style.css */
+
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap');
+
+
+/* General Body Styles */
+body {
+    font-family: 'Roboto', sans-serif; /* Modern, clean font */
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5;
+    /* Use bg.png for background */
+    background-image: url('./images/bg.png');
+    background-repeat: repeat; /* or repeat-x, repeat-y, no-repeat */
+    background-size: 100px; /* Adjust as needed */
+    color: #333;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Header */
+.pokedex-header {
+    background-color: #e3350d; /* Red from Pokemon logo */
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden; /* Hide overflow for background elements */
+}
+
+.pokedex-header::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 200px;
+    height: 200px;
+    background: url('./images/pokeball.png') no-repeat center center;
+    background-size: contain;
+    opacity: 0.1;
+    transform: rotate(20deg);
+    z-index: 0;
+}
+
+.pokedex-header h1 {
+    font-family: 'Press Start 2P', cursive; /* Retro game font for title */
+    margin: 0;
+    font-size: 2.5em;
+    letter-spacing: 2px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+    position: relative; /* Ensure text is above background elements */
+    z-index: 1;
+}
+
+.search-container {
+    margin-top: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+#searchInput {
+    padding: 12px 20px;
+    width: 80%;
+    max-width: 450px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1em;
+    outline: none;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+}
+
+#searchInput::placeholder {
+    color: #888;
+}
+
+#searchInput:focus {
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.6), inset 0 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: white;
+}
+
+/* Main Content Area */
+.pokedex-main {
+    padding: 30px 20px;
+    max-width: 1200px;
+    margin: 30px auto;
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white for content area */
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Loading Spinner (now an image) */
+.spinner-container {
+    display: flex; /* Use flex to center content */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px; /* Give it some height */
+    text-align: center;
+    color: #555;
+    font-size: 1.2em;
+    display: none; /* Hidden by default */
+}
+
+.spinner-gif {
+    width: 100px; /* Size of your GIF */
+    height: 100px;
+    margin-bottom: 15px;
+}
+
+/* Pokemon Grid Layout */
+.pokemon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Slightly larger cards */
+    gap: 25px;
+    justify-content: center;
+}
+
+/* No Results Message */
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: 1.3em;
+    color: #666;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Pokemon Card Styling */
+.pokemon-card {
+    background-color: white;
+    border-radius: 20px; /* More rounded corners */
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border 0.3s ease-in-out;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 280px; /* Ensure consistent height */
+    border: 3px solid transparent; /* For hover effect */
+    position: relative;
+    overflow: hidden;
+}
+
+.pokemon-card::before { /* Subtle background pattern */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('./images/ballpixel.png') repeat;
+    background-size: 30px;
+    opacity: 0.05; /* Very subtle */
+    z-index: 0;
+}
+
+.pokemon-card > * { /* Ensure content is above background pattern */
+    position: relative;
+    z-index: 1;
+}
+
+.pokemon-card:hover {
+    transform: translateY(-8px) scale(1.02); /* More pronounced lift */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border: 3px solid #e3350d; /* Red border on hover */
+}
+
+.pokemon-sprite {
+    width: 100px;
+    height: 100px;
+    image-rendering: pixelated;
+    margin-bottom: 12px;
+    filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.2)); /* Shadow for sprites */
+}
+
+.pokemon-id {
+    font-size: 0.95em;
+    color: #777;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.pokemon-name {
+    font-size: 1.4em;
+    margin: 8px 0 15px;
+    color: #222;
+    text-transform: capitalize;
+    font-weight: 700;
+}
+
+.pokemon-types {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 7px;
+    margin-top: 15px;
+}
+
+.pokemon-types .type {
+    padding: 6px 12px;
+    border-radius: 20px; /* Pill shape for types */
+    font-size: 0.85em;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+}
+
+.pokemon-types .type:hover {
+    transform: translateY(-2px);
+}
+
+/* Pokemon Type Colors (as before, but ensure good contrast with text-shadow) */
+.type.normal { background-color: #A8A77A; }
+.type.fire { background-color: #EE8130; }
+.type.water { background-color: #6390F0; }
+.type.grass { background-color: #7AC74C; }
+.type.electric { background-color: #F7D02C; }
+.type.ice { background-color: #96D9D6; }
+.type.fighting { background-color: #C22E28; }
+.type.poison { background-color: #A33EA1; }
+.type.ground { background-color: #E2BF65; }
+.type.flying { background-color: #A98FF3; }
+.type.psychic { background-color: #F95587; }
+.type.bug { background-color: #A6B91A; }
+.type.rock { background-color: #B6A136; }
+.type.ghost { background-color: #735797; }
+.type.dragon { background-color: #6F35FC; }
+.type.steel { background-color: #B7B7CE; }
+.type.dark { background-color: #705746; }
+.type.fairy { background-color: #D685AD; }
+
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000; /* Higher z-index to be sure */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7); /* Darker overlay */
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Padding for small screens */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    padding: 40px; /* More padding */
+    border-radius: 15px;
+    width: 90%;
+    max-width: 650px; /* Slightly wider modal */
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    position: relative;
+    animation: fadeIn 0.4s ease-out;
+    display: flex;
+    flex-direction: column;
+    border: 5px solid #e3350d; /* Stronger border */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-50px) scale(0.9); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.close-button {
+    color: #e3350d; /* Red close button */
+    font-size: 36px; /* Larger close button */
+    font-weight: bold;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #a02507;
+    transform: rotate(90deg);
+}
+
+.modal-header {
+    text-align: center;
+    border-bottom: 2px solid #f0f0f0; /* Thicker separator */
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 2.4em;
+    text-transform: capitalize;
+    color: #e3350d;
+    font-weight: 700;
+}
+
+.modal-id {
+    font-size: 0.6em;
+    color: #888;
+    vertical-align: super;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: row; /* Horizontal layout for desktop */
+    gap: 30px;
+    align-items: flex-start; /* Align top */
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+}
+
+.modal-sprites {
+    display: flex;
+    flex-direction: column; /* Stack sprites vertically */
+    align-items: center;
+    gap: 15px;
+    min-width: 150px; /* Ensure sprites take up enough space */
+}
+
+.modal-sprite {
+    width: 140px; /* Larger sprites in modal */
+    height: 140px;
+    image-rendering: pixelated;
+    background-color: #fafafa;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.15);
+    border: 1px solid #ddd;
+}
+
+.modal-info {
+    flex-grow: 1; /* Allow info to take remaining space */
+    text-align: left;
+}
+
+.modal-info h3 {
+    color: #e3350d;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 5px;
+    font-size: 1.3em;
+}
+
+.modal-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.modal-info ul li {
+    background-color: #f8f8f8;
+    margin-bottom: 6px;
+    padding: 10px 15px;
+    border-radius: 7px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1em;
+    border: 1px solid #eee;
+}
+.modal-info ul li:nth-child(odd) {
+    background-color: #efefef;
+}
+.modal-info ul li span:first-child {
+    font-weight: bold;
+    color: #555;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .pokedex-header h1 {
+        font-size: 2em;
+    }
+    .pokedex-header::before {
+        width: 150px;
+        height: 150px;
+        top: -30px;
+        left: -30px;
+    }
+    .pokemon-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Adjust for smaller screens */
+        gap: 20px;
+    }
+    .pokemon-card {
+        padding: 15px;
+        min-height: 250px;
+    }
+    .pokemon-sprite {
+        width: 90px;
+        height: 90px;
+    }
+    .pokemon-name {
+        font-size: 1.2em;
+    }
+    .modal-content {
+        width: 95%;
+        margin: 5% auto;
+        padding: 25px;
+    }
+    .modal-body {
+        flex-direction: column; /* Stack details vertically on smaller screens */
+        align-items: center;
+        gap: 20px;
+    }
+    .modal-sprites {
+        flex-direction: row; /* Sprites can be side-by-side or wrap */
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+    }
+    .modal-sprite {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    .pokedex-header h1 {
+        font-size: 1.6em;
+    }
+    #searchInput {
+        width: 95%;
+        font-size: 1em;
+        padding: 10px 15px;
+    }
+    .pokemon-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 15px;
+    }
+    .pokemon-card {
+        min-height: 220px;
+        padding: 10px;
+        border-radius: 15px;
+    }
+    .pokemon-sprite {
+        width: 70px;
+        height: 70px;
+    }
+    .pokemon-name {
+        font-size: 1em;
+        margin: 5px 0 10px;
+    }
+    .pokemon-types .type {
+        font-size: 0.75em;
+        padding: 4px 8px;
+    }
+    .modal-content {
+        margin: 3% auto;
+        padding: 15px;
+        border-width: 3px;
+    }
+    .modal-header h2 {
+        font-size: 1.8em;
+    }
+    .modal-sprite {
+        width: 80px;
+        height: 80px;
+    }
+    .modal-info h3 {
+        font-size: 1.1em;
+    }
+    .modal-info ul li {
+        padding: 8px 10px;
+        font-size: 0.9em;
+    }
+}
+
+/* Original utility classes are now mostly overridden or integrated */
+/* If you still need them, uncomment and adjust as necessary */
+
+/* Cú pháp CSS */
+/* selector {
+  property: value;
+} */
+
+/* Thay đổi màu chữ trong thẻ p */
+/* p {
+  color: blue;
+  font-size: 16px;
+} */
+
+/* Bố cục với CSS flex */
+/* .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+/* Bố cục với CSS Grid Layout*/
+/* .grid-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+} */
+
+/* END OF FILE style.css */
